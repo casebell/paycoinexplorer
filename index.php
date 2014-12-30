@@ -11,7 +11,7 @@ $input= "";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
   if (!empty($_GET["input"])) {
     $input = test_input($_GET["input"]);
-		site_header ("Peercoin Block Detail Page");
+		site_header ("Paycoin Block Detail Page");
   }
 }
 // Trim; strip etc for input safety
@@ -71,14 +71,14 @@ function test_input($data) {
 	
 //	If there were no request parameters the menu is shown
 	if (!$show_detail) {
-		site_header("Peercoin Block Viewer");
+		site_header("Paycoin Block Explorer");
 				
 		$network_info = getinfo ();
 		$difficulty_info = getdifficulty ();
 		$net_speed = getnetworkhashps ();
 ?>
 <div id="site_menu">
-	<p><center>Explore the Peercoin blockchain by looking for a Block Number (Index), Block Hash, or Transaction ID.</center></p>
+	<p><center>Explore the Paycoin blockchain by looking for a Block Number (Index), Block Hash, or Transaction ID.</center></p>
     
     <form class="form-horizontal" role="form" action="index.php" method="get">
     <div class="form-group col-xs-12">
@@ -92,9 +92,9 @@ function test_input($data) {
 
 	<div class="menu_item">
 		<br>
-        <p class="menu_desc"><center>Find out more about Peercoin (PPC):</center></p>
-		<center><a href="http://peercoin.net" target="_blank">Visit Peercoin.net Official Peercoin Website</a></center>
-		<center><a href="http://www.peercointalk.org" target="_blank">Official Peercoin Forum</a></center>
+        <p class="menu_desc"><center>Find out more about Paycoin (XPM):</center></p>
+		<center><a href="http://www.paycoin.com/" target="_blank">Visit Paycoin Webiste</a></center>
+		<center><a href="https://paybase.com/" target="_blank">Online Paycoin Wallets</a></center>
 	</div>
 </div>
 
@@ -118,6 +118,10 @@ function test_input($data) {
 	// POS:POW Ratio
 	$ratio1 = ratio($POS1, $POW1);
 	$ratio24 = ratio($POS24, $POW24);
+	
+	$pricejson = file_get_contents('https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-xpy');
+	$price = json_decode($pricejson);
+	
 ?>
 
 
@@ -141,11 +145,11 @@ function test_input($data) {
 	</dl>
 	<dl>
 		<dt>Price:</dt>
-		<dd><span id="ticker">Loading...</span> / <span id="tickerbtc">Loading...</span></dd>
+		<dd><?php echo $price->Last; ?>BTC</dd>
 	</dl>
 	<dl>
 		<dt>Market Capitalization:</dt>
-		<dd><span id="marketcap">Loading...</span></dd>
+		<dd><?php echo $price->Last * $totalcoins; ?></dd>
 	</dl>
 	<dl>
 		<dt>PoS Difficulty:</dt>
@@ -187,11 +191,9 @@ function test_input($data) {
 		<dt>PoS:PoW Ratio 1h/24:</dt>
 		<dd><?php echo $ratio1 . " / " . $ratio24; ?></dd>
 	</dl>
-	<p><center><a href="http://www.peercointalk.org" target="_blank">Brought to you by FuzzyBear and PeercoinTalk.org</a>
-    </center>
-    </p>
+	
 	<div class="logolink">
-	<a href="http://peercoin.net" target="_blank"><img id="peercoin_logo" src="http://merchanttools.peercointalk.org/Logo/Logo.png" alt="Peercoin Logo" title="Peercoin Logo"></a>
+	<a href="http://paycoin.com" target="_blank"><img id="peercoin_logo" src="/imgs/paycoinlogo.png" alt="Paycoin Logo" title="Paycoin Logo"></a>
 	</div>
 </div>
 

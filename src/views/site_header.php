@@ -3,7 +3,7 @@
 	<title><?php echo $title; ?></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
-	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script>
 		$(function () {
 		    startRefresh();
@@ -23,7 +23,7 @@
                         
 		    });
 		}
-	</script>
+	</script>-->
 </head>
 <body>
 

@@ -8,7 +8,7 @@
 	$GLOBALS["wallet_user"] = "USERNAME";
 	$GLOBALS["wallet_pass"] = "PASSWORD";
 
-	$coin_name = "Peercoin";
+	$coin_name = "Paycoin";
 
 /******************************************************************************
 
