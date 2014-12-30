@@ -92,7 +92,7 @@ function test_input($data) {
 
 	<div class="menu_item">
 		<br>
-        <p class="menu_desc"><center>Find out more about Paycoin (XPM):</center></p>
+        <p class="menu_desc"><center>Find out more about Paycoin (XPY):</center></p>
 		<center><a href="http://www.paycoin.com/" target="_blank">Visit Paycoin Webiste</a></center>
 		<center><a href="https://paybase.com/" target="_blank">Online Paycoin Wallets</a></center>
 	</div>
@@ -118,10 +118,16 @@ function test_input($data) {
 	// POS:POW Ratio
 	$ratio1 = ratio($POS1, $POW1);
 	$ratio24 = ratio($POS24, $POW24);
+
+	ini_set('display_errors',TRUE);
+	error_reporting(E_ALL);
 	
 	$pricejson = file_get_contents('https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-xpy');
 	$price = json_decode($pricejson);
-	
+
+	$btcpricejson = file_get_contents('https://www.bitstamp.net/api/ticker/');
+        $btcprice = json_decode($btcpricejson);
+
 ?>
 
 
@@ -145,11 +151,15 @@ function test_input($data) {
 	</dl>
 	<dl>
 		<dt>Price:</dt>
-		<dd><?php echo $price->Last; ?>BTC</dd>
-	</dl>
+		<dd><?php echo $price->result[0]->Last; ?> BTC, <?php echo $price->result[0]->Last * $btcprice->last;?> USD</dd>	</dl>
+
 	<dl>
 		<dt>Market Capitalization:</dt>
-		<dd><?php echo $price->Last * $totalcoins; ?></dd>
+		<dd>
+		<?php
+	
+ 		echo $price->result[0]->Last * $totalcoins; 
+		?></dd>
 	</dl>
 	<dl>
 		<dt>PoS Difficulty:</dt>
@@ -167,33 +177,20 @@ function test_input($data) {
 		<dt>Average PoS Minting Reward (last 1h/24h):</dt>
 		<dd><?php echo round($avgPOScoins1, 2) . " / " . round($avgPOScoins24, 2); ?></dd>
 	</dl>
-	<dl>
-		<dt>PoW Mining Reward (last 1h/24h):</dt>
-		<dd><?php echo $POWcoins1  . " / " . $POWcoins24; ?></dd>
-	</dl>
-	<dl>
-		<dt>Average PoW Mining Reward (last 1h/24h):</dt>
-		<dd><?php echo round($avgPOWcoins1, 2)  . " / " . round($avgPOWcoins24, 2); ?></dd>
-	</dl>
+	
+	
 	<dl>
 		<dt>Total Blocks:</dt>
 		<dd><?php echo number_format($totalblocks, 0 , '.' , ','); ?></dd>
 	</dl>
-	<dl>
+	<dl class="last">
 		<dt>PoS Blocks (last 1h/24h):</dt>
 		<dd><?php echo $POS1 . " / " . $POS24; ?></dd>
 	</dl>
-	<dl>
-		<dt>PoW Blocks (last 1h/24h):</dt>
-		<dd><?php echo $POW1  . " / " . $POW24; ?></dd>
-	</dl>
-	<dl class="last">
-		<dt>PoS:PoW Ratio 1h/24:</dt>
-		<dd><?php echo $ratio1 . " / " . $ratio24; ?></dd>
-	</dl>
 	
 	<div class="logolink">
-	<a href="http://paycoin.com" target="_blank"><img id="peercoin_logo" src="/imgs/paycoinlogo.png" alt="Paycoin Logo" title="Paycoin Logo"></a>
+
+	<a href="http://paycoin.com"  target="_blank"><img id="peercoin_logo" width="128px" height="128px" src="imgs/paycoinlogo.png" alt="Paycoin Logo" title="Paycoin Logo"></a>
 	</div>
 </div>
 
@@ -201,7 +198,7 @@ function test_input($data) {
 <?php
 	}
 
-	site_footer ();
+
 
 /******************************************************************************
 	This script is Copyright � 2013 Jake Paysnoe.

@@ -4,9 +4,9 @@
 	Wallet Configuration
 ******************************************************************************/
 	$GLOBALS["wallet_ip"] = "127.0.0.1";
-	$GLOBALS["wallet_port"] = "9902";
-	$GLOBALS["wallet_user"] = "USERNAME";
-	$GLOBALS["wallet_pass"] = "PASSWORD";
+	$GLOBALS["wallet_port"] = "4444";
+	$GLOBALS["wallet_user"] = "user";
+	$GLOBALS["wallet_pass"] = "pass";
 
 	$coin_name = "Paycoin";
 
